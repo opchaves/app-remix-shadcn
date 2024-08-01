@@ -4,11 +4,10 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "build": "remix vite:build",
     "dev": "dotenv -- node ./server.js",
     "fix": "biome check . --apply",
-    "gen:migration": "pnpm drizzle-kit generate:sqlite",
+    "gen:migration": "drizzle-kit generate:sqlite",
     "lint": "biome check .",
     "start": "cross-env NODE_ENV=production node ./server.js",
     "typecheck": "tsc"

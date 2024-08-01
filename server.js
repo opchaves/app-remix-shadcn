@@ -26,10 +26,10 @@ const viteDevServer =
 	process.env.NODE_ENV === "production"
 		? undefined
 		: await import("vite").then((vite) =>
-			vite.createServer({
-				server: { middlewareMode: true },
-			}),
-		);
+				vite.createServer({
+					server: { middlewareMode: true },
+				}),
+		  );
 
 let dbPath = ":memory:";
 
@@ -39,13 +39,13 @@ if (process.env.NODE_ENV !== "test") {
 		? path.resolve(process.env.DB_PATH)
 		: path.resolve("./.database");
 	fs.mkdirSync(dbDir, { recursive: true });
-	dbPath = path.resolve(dbDir, 'database.db');
+	dbPath = path.resolve(dbDir, "database.db");
 }
 
 const sqlite = new Database(dbPath);
-sqlite.pragma('journal_mode = WAL');
-sqlite.pragma('foreign_keys = ON');
-sqlite.pragma('timeout = 5000');
+sqlite.pragma("journal_mode = WAL");
+sqlite.pragma("foreign_keys = ON");
+sqlite.pragma("timeout = 5000");
 
 migrate(drizzle(sqlite), {
 	migrationsFolder: "./migrations",

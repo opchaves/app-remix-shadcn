@@ -9,9 +9,8 @@ FROM base as deps
 
 WORKDIR /remixapp
 
-ADD package.json pnpm-lock.json ./
-RUN npm i -g pnpm
-RUN pnpm install --include=dev
+ADD package.json package-lock.json ./
+RUN npm install --include=dev
 
 # Setup production node_modules
 FROM base as production-deps
@@ -20,7 +19,7 @@ WORKDIR /remixapp
 
 COPY --from=deps /remixapp/node_modules /remixapp/node_modules
 ADD package.json package-lock.json ./
-RUN pnpm prune --omit=dev
+RUN npm prune --omit=dev
 
 # Build the app
 FROM base as build
@@ -32,7 +31,7 @@ ADD package.json package-lock.json postcss.config.js tailwind.config.cjs tsconfi
 ADD app/ app/
 ADD public/ public/
 
-RUN pnpm build
+RUN npm run build
 
 # Finally, build the production image with minimal footprint
 FROM base
@@ -46,4 +45,4 @@ COPY --from=build /remixapp/package.json /remixapp/package.json
 ADD server.js ./
 ADD migrations/ migrations/
 
-CMD ["pnpm", "start"]
+CMD ["npm", "start"]
