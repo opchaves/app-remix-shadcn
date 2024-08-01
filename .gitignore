@@ -1,0 +1,8 @@
+.cache
+.database
+.DS_Store
+.env
+*.log
+build
+data
+node_modules
