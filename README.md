@@ -4,32 +4,6 @@
 
 ## Getting Started
 
-Node Server:
-
-```sh
-npx create-remix@latest --template jacob-ebey/remix-shadcn
-```
-
-Cloudflare Pages:
-
-```shellscript
-npx create-remix@latest --template https://github.com/jacob-ebey/remix-shadcn/tree/cloudflare
-```
-
-Or for a more flushed out template with a login flow and a SQLite database backed by Drizzle ORM:
-
-Node Server:
-
-```shellscript
-npx create-remix@latest --template https://github.com/jacob-ebey/remix-shadcn/tree/drizzle
-```
-
-Cloudflare Pages:
-
-```shellscript
-npx create-remix@latest --template https://github.com/jacob-ebey/remix-shadcn/tree/drizzle-cloudflare
-```
-
 ## Built in theme switcher
 
 ![image](https://github.com/jacob-ebey/remix-shadcn/assets/12063586/c6ed812c-764f-46b7-af30-26284f55535c)
@@ -52,9 +26,26 @@ First, build your app for production:
 npm run build
 ```
 
+## Docker
+
+Building Docker image:
+
+```sh
+docker build -t opchaves/remix-shadcn
+```
+
+Running the production docker image:
+
+```sh
+docker run --rm -p 3000:3000 -e SESSION_SECRET="s3cr3t" -e DB_PATH='./data' opchaves/remix-shadcn
+```
+
 Setup your environment:
 
 ```sh
+cp .env.example .env
+
+SESSION_SECRET='s3cr3t'
 DB_PATH='/data' # a persistent volume
 NODE_ENV='production'
 ```
